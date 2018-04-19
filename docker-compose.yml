@@ -4,8 +4,8 @@ services:
   web:
     build:
       context: .
-    image: laraimage:latest
-    container_name: laraserver
+    image: php7.2-laravel:latest
+    container_name: php7.2-server
     ports:
       - "80:80"
     volumes:

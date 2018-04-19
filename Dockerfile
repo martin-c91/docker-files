@@ -10,6 +10,7 @@ RUN a2enmod rewrite
 
 # update and install essential
 RUN apt-get update
+RUN apt-get install -y apt-util
 RUN apt-get install -y nano
 
 # xdebug
@@ -22,11 +23,11 @@ RUN apt-get update && apt-get install -y zlib1g-dev \
     && docker-php-ext-install zip
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-#ENV XDEBUGINI_PATH=/usr/local/etc/php/conf.d/xdebug.ini
-#RUN echo "zend_extension="`find /usr/local/lib/php/extensions/ -iname 'xdebug.so'` > $XDEBUGINI_PATH
-#COPY xdebug.ini /tmp/xdebug.ini
-#RUN cat /tmp/xdebug.ini >> $XDEBUGINI_PATH
-#RUN echo "xdebug.remote_host="'/sbin/ip route|awk '/default/ { print $3 }' >> $XDEBUGINI_PATH
+ENV XDEBUGINI_PATH=/usr/local/etc/php/conf.d/xdebug.ini
+RUN echo "zend_extension="`find /usr/local/lib/php/extensions/ -iname 'xdebug.so'` > $XDEBUGINI_PATH
+COPY xdebug.ini /tmp/xdebug.ini
+RUN cat /tmp/xdebug.ini >> $XDEBUGINI_PATH
+RUN echo "xdebug.remote_host="'/sbin/ip route|awk '/default/ { print $3 }' >> $XDEBUGINI_PATH
 
 #RUN service apache2 restart
 
