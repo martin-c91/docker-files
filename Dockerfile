@@ -10,7 +10,6 @@ RUN a2enmod rewrite
 
 # update and install essential
 RUN apt-get update
-RUN apt-get install -y apt-util
 RUN apt-get install -y nano
 
 # xdebug
